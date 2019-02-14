@@ -1,0 +1,21 @@
+graph LR
+subgraph Raster Functionality
+A[Slope] --> C(readRaster) 
+B[Rain] --> C
+C--> F{Raster}
+D(createRanRaster) -->F
+E(createRanRasterSlope) --> F
+end
+subgraph Basic Flow Functionality 
+F -- <br>Inherits.  --> G{FlowRaster}
+G --> H(__init__)
+H --> I{FlowNode}
+G --> J(setDownCells)
+I --> |<br>Inherits.| J
+end
+subgraph Point Functionality 
+K{Point2D} --> |Inherits.|I
+end
+subgraph Task 2
+J --> L{FlowExtractor}
+end

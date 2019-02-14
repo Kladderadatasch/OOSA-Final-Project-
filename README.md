@@ -18,4 +18,4 @@
 
 ## Flowdiagram
 
-
+![FlowChart](./img/Mermaid_Flowchart.png)

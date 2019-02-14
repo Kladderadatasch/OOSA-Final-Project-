@@ -63,6 +63,10 @@ def calculateFlowsAndPlot(elevation, rain, resampleF):
     plotFlowNetwork(elevation, fr, "Network structure - before lakes", plotLakes=False)
     
     ################Step 2 ######################################
+    '''
+    Calculate flow volume
+    Resursively call each up-node and add one each time
+    '''
     #plotExtractedData(fr, flow.FlowExtractor(), "River flow rates - constant rain")
     
     ################# step 3 #######################################
@@ -96,6 +100,7 @@ randpercent=0.2
 resampleFactorA = 1
 elevationRasterA=createRanRasterSlope(rows,cols,cellsize,xorg,yorg,nodata,levels,datahi,datalow,xp,yp,randpercent)   
 rainrasterA=createRanRasterSlope(rows//resampleFactorA,cols//resampleFactorA,cellsize*resampleFactorA,xorg,yorg,nodata,levels,4000,1,36,4,.1)   
+
 
 calculateFlowsAndPlot(elevationRasterA, rainrasterA, resampleFactorA)
 
