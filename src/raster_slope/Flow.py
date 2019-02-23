@@ -95,19 +95,6 @@ class FlowRaster(Raster):
                    self._data[r,c].setDownnode(lowestN)
                else:
                    self._data[r,c].setDownnode(None)
-                                      
+                   
     def getPointList(self):
         return np.reshape(self._data, -1)
-    
-    def extractValues(self, extractor):
-        values=[]
-        for i in range(self._data.shape[0]):
-            for j in range(self._data.shape[1]):
-                values.append(extractor.getValue(self._data[i,j]))
-        valuesarray=np.array(values)
-        valuesarray.shape=self._data.shape
-        return valuesarray
-    
-class FlowExtractor():
-    def getValue(self, node):
-        return node.getFlow()
