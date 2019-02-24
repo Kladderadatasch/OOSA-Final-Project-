@@ -109,5 +109,7 @@ class FlowRaster(Raster):
         return valuesarray
     
 class FlowExtractor():
+
     def getValue(self, node):
-        return node.getFlow()
+        return node.numUpnodes()
+

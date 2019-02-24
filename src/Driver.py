@@ -1,6 +1,8 @@
 from RasterHandler import createRanRasterSlope
+from RasterHandler import readRaster
 import matplotlib.pyplot as mp
 from Flow import FlowRaster
+from Flow import FlowNode
 
 def createRaster():
 
@@ -31,5 +33,7 @@ FLOW.setDownCells()
 
 POINTS = FLOW.getPointList()
 
-DOWNNODE = FLOW.getDownnode()
+FLOW.getOrgs()
+
+
 

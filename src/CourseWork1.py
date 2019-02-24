@@ -66,13 +66,24 @@ def calculateFlowsAndPlot(elevation, rain, resampleF):
     '''
     Calculate flow volume
     Resursively call each up-node and add one each time
+    Solution:  
+        def getValue(self, node):
+            return node.numUpnodes()
     '''
-    #plotExtractedData(fr, flow.FlowExtractor(), "River flow rates - constant rain")
+    plotExtractedData(fr, flow.FlowExtractor(), "River flow rates - constant rain")
     
     ################# step 3 #######################################
     #handle variable rainfall
-    #fr.addRainfall(rain.getData())
-    #plotExtractedData(fr, flow.FlowExtractor(), "River flow rates - variable rainfall")
+    ''' addRainfall function 
+            not written in FlowRaster - need to add
+        Either replace the numUpNodes()
+            or implement 
+                if(addRainfall == True): return x
+                else(): return numUpNodes()
+            in getValues() 
+    '''
+    fr.addRainfall(rain.getData())
+    plotExtractedData(fr, flow.FlowExtractor(), "River flow rates - variable rainfall")
     
     ############# step 4 and step 5 #######################################
     # handle lakes
