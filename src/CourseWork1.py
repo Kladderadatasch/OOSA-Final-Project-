@@ -83,7 +83,7 @@ def calculateFlowsAndPlot(elevation, rain, resampleF):
             in getValues() 
     '''
     fr.addRainfall(rain.getData())
-    plotExtractedData(fr, flow.FlowExtractor(fr), "River flow rates - variable rainfall")
+    plotExtractedData(fr, flow.FlowExtractor(), "River flow rates - variable rainfall")
     
     ############# step 4 and step 5 #######################################
     # handle lakes
@@ -111,7 +111,6 @@ randpercent=0.2
 resampleFactorA = 1
 elevationRasterA=createRanRasterSlope(rows,cols,cellsize,xorg,yorg,nodata,levels,datahi,datalow,xp,yp,randpercent)   
 rainrasterA=createRanRasterSlope(rows//resampleFactorA,cols//resampleFactorA,cellsize*resampleFactorA,xorg,yorg,nodata,levels,4000,1,36,4,.1)   
-
 
 calculateFlowsAndPlot(elevationRasterA, rainrasterA, resampleFactorA)
 
