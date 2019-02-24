@@ -24,16 +24,39 @@ def createRaster():
 
     return raster, data
 
-#mp.matshow(data)
-#mp.colorbar()
 
 FLOW, DAT=createRaster()
 FLOW = FlowRaster(FLOW)
 FLOW.setDownCells()
 
+mp.matshow(DAT)
+mp.colorbar()
+
+
 POINTS = FLOW.getPointList()
 
-FLOW.getOrgs()
+#################################################################
+#################################################################
 
+#Somehow this function enables to use get_x()
+#and get_y() as well as getDownnode()
+for p in POINTS:
+    mp.scatter(p.get_x(),p.get_y(), color='yellow')
+    
+    if (p.getDownnode()!=None):
+        x1=p.get_x()
+        y1=p.get_y()
+        x2=p.getDownnode().get_x()
+        y2=p.getDownnode().get_y()
+        mp.plot([x1,x2],[y1,y2],color="black")
 
+mp.show()
 
+###################################################################
+###################################################################
+
+upList = []
+for p in POINTS:
+    upList.append(p.numUpnodes())
+
+print(POINTS[0]._data)

@@ -83,7 +83,7 @@ def calculateFlowsAndPlot(elevation, rain, resampleF):
             in getValues() 
     '''
     fr.addRainfall(rain.getData())
-    plotExtractedData(fr, flow.FlowExtractor(), "River flow rates - variable rainfall")
+    plotExtractedData(fr, flow.FlowExtractor(fr), "River flow rates - variable rainfall")
     
     ############# step 4 and step 5 #######################################
     # handle lakes

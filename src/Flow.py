@@ -66,6 +66,7 @@ class FlowRaster(Raster):
         self.__neighbourIterator=np.array([1,-1,1,0,1,1,0,-1,0,1,-1,-1,-1,0,-1,1] )
         self.__neighbourIterator.shape=(8,2)
         self.setDownCells()
+        self._addRainCalled = False
         
               
     def getNeighbours(self, r, c):
@@ -95,7 +96,11 @@ class FlowRaster(Raster):
                    self._data[r,c].setDownnode(lowestN)
                else:
                    self._data[r,c].setDownnode(None)
-                                      
+    
+    def addRainfall(self, rainObject):
+        self._rain = rainObject
+        self._addRainCalled = True
+                                  
     def getPointList(self):
         return np.reshape(self._data, -1)
     
@@ -109,7 +114,13 @@ class FlowRaster(Raster):
         return valuesarray
     
 class FlowExtractor():
-
+    
+    def __init__(self,FLOWRASTER):
+        self.addRainCalled = FLOWRASTER._addRainCalled
+    
     def getValue(self, node):
-        return node.numUpnodes()
+        if self.addRainCalled == False:
+            return node.numUpnodes()
+        if self.addRainCalled == True:
+            return node._rain
 
