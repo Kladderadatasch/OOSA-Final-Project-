@@ -11,6 +11,7 @@ class FlowNode(Point2D):
         self._upnodes=[]
         self._pitflag=True
         self._value=value
+        self._rain = 0
         
     def setDownnode(self, newDownNode):
         self._pitflag=(newDownNode==None)
@@ -43,7 +44,23 @@ class FlowNode(Point2D):
     
     def getElevation(self):
         return self._value
-  
+    
+    def getFlow(self, israin = False):
+    
+        if israin == True:
+            
+            sumRain = 0
+            
+            for i in self.getUpnodes():
+                
+                sumRain = sumRain + i._rain
+                
+            return sumRain
+        
+        if israin == False:
+            return self.numUpnodes()
+                
+      
     def __str__(self):
         return "Flownode x={}, y={}".format(self.get_x(), self.get_y())
     
@@ -61,8 +78,10 @@ class FlowRaster(Raster):
             
         nodearray=np.array(nodes)
         nodearray.shape=data.shape
+        
         self._data = nodearray
-
+        
+        
         self.__neighbourIterator=np.array([1,-1,1,0,1,1,0,-1,0,1,-1,-1,-1,0,-1,1] )
         self.__neighbourIterator.shape=(8,2)
         self.setDownCells()
@@ -96,34 +115,37 @@ class FlowRaster(Raster):
                    self._data[r,c].setDownnode(None)
     
     def addRainfall(self, rainObject):
-        data = rainObject
-        nodes=[]
-        for i in range(data.shape[0]):
-            for j in range(data.shape[1]):
-                y=(i)*self.getCellsize()+self.getOrgs()[0]
-                x=(j)*self.getCellsize()+self.getOrgs()[1]
-                nodes.append(FlowNode(x,y, data[i,j]))
+        
+        for i in range(rainObject.shape[0]):
+            for j in range(rainObject.shape[1]):
+                self._data[i,j]._rain = rainObject[i,j]
+                
+
             
-        nodearray=np.array(nodes)
-        nodearray.shape=data.shape
-        self._data = nodearray
-        return self._data 
-                                       
+    def calculateLakes(self):
+        return self
+            
     def getPointList(self):
         return np.reshape(self._data, -1)
     
-    def extractValues(self, extractor):
+    def extractValues(self, extractor, isR):
         values=[]
         for i in range(self._data.shape[0]):
             for j in range(self._data.shape[1]):
-                values.append(extractor.getValue(self._data[i,j]))
+                values.append(extractor.getValue(self._data[i,j], isRainfall = isR))
         valuesarray=np.array(values)
         valuesarray.shape=self._data.shape
         return valuesarray
+
     
 class FlowExtractor():
             
-    def getValue(self, node):
-        return node.numUpnodes()
+    def getValue(self, node, isRainfall):
+       
+            return node.getFlow(israin = isRainfall)
+        
     
-
+class LakeDepthExtractor():
+    
+    def getValue(self, node):
+        return node

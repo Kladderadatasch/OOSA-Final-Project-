@@ -19,15 +19,22 @@ def createRaster():
     datalow=0
     randpercent=0.2
     
+    resampleFactorA = 1
+    
     raster=createRanRasterSlope(rows,cols,cellsize,xorg,yorg,nodata,levels,datahi,datalow,xp,yp,randpercent)        
     data=raster.getData()
+    rainraster=createRanRasterSlope(rows//resampleFactorA,cols//resampleFactorA,cellsize*resampleFactorA,xorg,yorg,nodata,levels,4000,1,36,4,.1)   
 
-    return raster, data
+
+    return raster, data, rainraster
 
 
-FLOW, DAT=createRaster()
+FLOW, DAT, RAIN=createRaster()
 FLOW = FlowRaster(FLOW)
 FLOW.setDownCells()
+
+FLOW.addRainfall(RAIN.getData())
+FLOW._data
 
 mp.matshow(DAT)
 mp.colorbar()

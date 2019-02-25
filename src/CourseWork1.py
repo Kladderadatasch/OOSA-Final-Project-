@@ -34,9 +34,9 @@ def plotFlowNetwork(originalRaster, flowRaster, title="", plotLakes=True):
 
     mp.show()
 
-def plotExtractedData(flowRaster, extractor, title=""):
+def plotExtractedData(flowRaster, extractor, title="", isRainFall = False):
     print ("\n\n{}".format(title))
-    mp.imshow(flowRaster.extractValues(extractor))
+    mp.imshow(flowRaster.extractValues(extractor, isR = isRainFall))
     mp.colorbar()
     mp.show()
 
@@ -60,7 +60,7 @@ def calculateFlowsAndPlot(elevation, rain, resampleF):
     '''
     
     fr=flow.FlowRaster(resampledElevations)
-    plotFlowNetwork(elevation, fr, "Network structure - before lakes", plotLakes=False)
+#    plotFlowNetwork(elevation, fr, "Network structure - before lakes", plotLakes=False)
     
     ################Step 2 ######################################
     '''
@@ -83,7 +83,7 @@ def calculateFlowsAndPlot(elevation, rain, resampleF):
             in getValues() 
     '''
     fr.addRainfall(rain.getData())
-    plotExtractedData(fr, flow.FlowExtractor(), "River flow rates - variable rainfall")
+    plotExtractedData(fr, flow.FlowExtractor(), "River flow rates - variable rainfall", isRainFall = True)
     
     ############# step 4 and step 5 #######################################
     # handle lakes
