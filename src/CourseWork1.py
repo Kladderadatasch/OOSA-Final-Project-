@@ -60,7 +60,7 @@ def calculateFlowsAndPlot(elevation, rain, resampleF):
     '''
     
     fr=flow.FlowRaster(resampledElevations)
-#    plotFlowNetwork(elevation, fr, "Network structure - before lakes", plotLakes=False)
+    plotFlowNetwork(elevation, fr, "Network structure - before lakes", plotLakes=False)
     
     ################Step 2 ######################################
     '''
@@ -74,14 +74,10 @@ def calculateFlowsAndPlot(elevation, rain, resampleF):
     
     ################# step 3 #######################################
     #handle variable rainfall
-    ''' addRainfall function 
-            not written in FlowRaster - need to add
-        Either replace the numUpNodes()
-            or implement 
-                if(addRainfall == True): return x
-                else(): return numUpNodes()
-            in getValues() 
     '''
+	addRainfall does not replace any values but adds 
+	the rainfall values on top of the current _data attribute of every node
+	'''
     fr.addRainfall(rain.getData())
     plotExtractedData(fr, flow.FlowExtractor(), "River flow rates - variable rainfall", isRainFall = True)
     
