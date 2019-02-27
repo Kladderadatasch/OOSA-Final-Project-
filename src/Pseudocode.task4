@@ -1,0 +1,51 @@
+
+class DealWithLakes():
+	
+	self._Lake = False
+	
+	function defineLakes(self):
+	
+		'''Defines if a specific node is part of a lake or not'''
+	
+		for i in range(self._data.shape[0]):
+			for j in range(self._data.shape[1]):
+				neighbours = FlowRaster.getNeighbours(self._data[i,j])
+				if (self._data[i,j]._downnode == True) && (self._downnode %in% neighbours == True):
+					self._data[i,j]._Lake = True 		
+				
+		
+	function calculateLakes(self, Node):
+	
+		'''If a node is part of a lake, check his direct neighbours and if they
+		are also part of a lake, then assign them the same FlowVolume. Check also,
+		if one of them is marked as an upnode, and if so, mark the others also as upnodes'''
+		
+		for i in range(self._data.shape[0]):
+			for j in range(self._data.shape[1]):
+		
+				if data[i,j]._Lake == True:
+					neighbours = FlowRaster.getNeighbours(data[i,j])
+					
+					for k in range(len(neighbours)):
+						if self._upnode %in% neighbours == True:
+							neighbours[k]._upnode = True
+							FlowVolume = FlowVolume + FlowExtractor.getFlow(neighbours[k])
+					
+					for l in range(len(neighbours)):
+						neighbours[l]._rain = FlowVolume
+				
+	
+	function LakeDepthExtractor(self):
+	
+		deptharray = self._data.shape
+		for i in range(self._data.shape[0]):
+			for j in range(self._data.shape[1]):
+				if self._data[i,j]._Lake == True:
+					deptharray[i,j] = self._data[i,j]
+				else:
+					deptharray[i,j] = -999
+					
+		return deptharray
+				
+					
+		

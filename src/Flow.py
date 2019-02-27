@@ -130,11 +130,21 @@ class FlowRaster(Raster):
     
     def extractValues(self, extractor, isR):
         values=[]
+        maxRain = 0
         for i in range(self._data.shape[0]):
             for j in range(self._data.shape[1]):
                 values.append(extractor.getValue(self._data[i,j], isRainfall = isR))
+                
         valuesarray=np.array(values)
         valuesarray.shape=self._data.shape
+        for i in range(valuesarray.shape[0]):
+            for j in range(valuesarray.shape[1]):
+                if valuesarray[i,j] > maxRain:
+                    maxRain = valuesarray[i,j]
+                    k = i
+                    l = j
+        print('''The maximum flow rate is :'''+str(round(maxRain))+''' mm''')
+        print('''Location of the maximum '''+self._data[k,l].__str__())
         return valuesarray
 
     
@@ -145,7 +155,3 @@ class FlowExtractor():
             return node.getFlow(israin = isRainfall)
         
     
-class LakeDepthExtractor():
-    
-    def getValue(self, node):
-        return node

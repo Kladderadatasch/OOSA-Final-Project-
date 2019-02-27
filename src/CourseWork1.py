@@ -87,6 +87,7 @@ def calculateFlowsAndPlot(elevation, rain, resampleF):
     
     ############# step 4 and step 5 #######################################
     # handle lakes
+	#fr.defineLakes()
     #fr.calculateLakes()
     #plotFlowNetwork(elevation, fr, "Network structure (i.e. watersheds) - with lakes")
     #plotExtractedData(fr, flow.LakeDepthExtractor(), "Lake depth")
@@ -115,7 +116,7 @@ rainrasterA=createRanRasterSlope(rows//resampleFactorA,cols//resampleFactorA,cel
 calculateFlowsAndPlot(elevationRasterA, rainrasterA, resampleFactorA)
 
 ############# step 5 #######################################
-#calculateFlowsAndPlot(readRaster('ascifiles/dem_hack.txt'), readRaster('ascifiles/rain_small_hack.txt'), 10)
+#calculateFlowsAndPlot(readRaster('../data/dem_hack.txt'), readRaster('../data/rain_small_hack.txt'), 10)
 
 
 
