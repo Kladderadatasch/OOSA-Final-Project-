@@ -1,6 +1,6 @@
 # Final Assessment
 
-##Executing on your device
+## Executing on your device
 
 To test the code on your local device, fork or download the repository.
 Python 3 is required for this code.
@@ -23,6 +23,17 @@ the shortcut for this operation is ctrl+1.
 3. Remove the # from line 115 and specify our file names.
 4. Save Coursework1.py and execute as above.   
 
+## Output plots
+
+![Elevation](./img/original_elevation_random.png)
+![Rainfall](./img/rainfall_raster_random.png)
+![FlowNetwork](./img/flow_network_random.png)
+![SimpleFlow](./img/flow_estimation_simple_random.png)
+![SophisticatedFlow](./img/flow_estimation_sophisticated_random.png)
+
+### Further Output
+
+Maximum Flow Rate and Location are displayed in your bash terminal
 
 ## Tasks
 
